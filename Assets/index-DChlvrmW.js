@@ -1,0 +1,1 @@
+console.log('Hello from index.js'); document.getElementById('app').textContent = 'Привет с GitHub Pages!';
