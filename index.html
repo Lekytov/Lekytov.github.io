@@ -14,3 +14,40 @@
     <div id="app"></div>
   </body>
 </html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Музыка на фоне</title>
+    <style>
+      /* Стили для кнопки */
+      .play-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 10; /* Убедитесь, что кнопка выше других элементов */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Прозрачная кнопка -->
+    <button class="play-button" onclick="playMusic()"></button>
+
+    <!-- Аудио -->
+    <audio id="background-music" src="music.mp3" loop></audio>
+
+    <script>
+      function playMusic() {
+        const audio = document.getElementById('background-music');
+        audio.play();
+        // Убираем кнопку после первого нажатия
+        document.querySelector('.play-button').style.display = 'none';
+      }
+    </script>
+  </body>
+</html>
