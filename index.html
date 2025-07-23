@@ -9,45 +9,101 @@
     <title></title>
     <script type="module" crossorigin src="assets/index-DChlvrmW.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-DPfygzNe.css">
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
-</html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Музыка на фоне</title>
     <style>
-      /* Стили для кнопки */
       .play-button {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         background: transparent;
         border: none;
         cursor: pointer;
-        z-index: 10; /* Убедитесь, что кнопка выше других элементов */
+        z-index: 1;
+      }
+
+      #buy-melon-container {
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        background-color: black;
+        padding: 10px;
+        border-radius: 10px;
+        z-index: 9999;
+      }
+
+      #buy-melon-btn {
+        color: white;
+        background: transparent;
+        border: 2px solid white;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+
+      #melon-image {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: 9998;
       }
     </style>
   </head>
   <body>
-    <!-- Прозрачная кнопка -->
-    <button class="play-button" onclick="playMusic()"></button>
+    <div id="app"></div>
 
-    <!-- Аудио -->
-    <audio id="background-music" src="music.mp3" loop></audio>
+    <!-- Кнопка запуска фоновой музыки -->
+    <button class="play-button" onclick="startBackgroundMusic()"></button>
+
+    <!-- Фоновая музыка -->
+    <audio id="background-music" src="assets/bg.mp3" loop></audio>
+
+    <!-- Кнопка и медиа -->
+    <div id="buy-melon-container">
+      <button id="buy-melon-btn">Купить арбуз 🍉</button>
+    </div>
+
+    <img id="melon-image" src="" alt="Арбуз на весь экран" />
+    <audio id="melon-audio" loop></audio>
 
     <script>
-      function playMusic() {
-        const audio = document.getElementById('background-music');
-        audio.play();
-        // Убираем кнопку после первого нажатия
+      let bgAudio;
+
+      function startBackgroundMusic() {
+        bgAudio = document.getElementById('background-music');
+        bgAudio.play();
         document.querySelector('.play-button').style.display = 'none';
       }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('buy-melon-btn');
+        const img = document.getElementById('melon-image');
+        const melonAudio = document.getElementById('melon-audio');
+
+        btn.addEventListener('click', () => {
+          const melonAudioUrl = 'assets/song.mp3';
+          const melonImageUrl = 'assets/melon-full.png';
+
+          // Остановить фоновую музыку
+          if (bgAudio && !bgAudio.paused) {
+            bgAudio.pause();
+            bgAudio.currentTime = 0;
+          }
+
+          // Воспроизвести музыку арбуза
+          melonAudio.src = melonAudioUrl;
+          melonAudio.play();
+
+          // Показать изображение
+          img.src = melonImageUrl;
+          img.style.display = 'block';
+        });
+      });
     </script>
   </body>
 </html>
