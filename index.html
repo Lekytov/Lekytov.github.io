@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
     <link href="https://fonts.cdnfonts.com/css/doctor-glitch" rel="stylesheet">
-    <title></title>
+    <title>Melon Page</title>
     <script type="module" crossorigin src="assets/index-DChlvrmW.js"></script>
     <link rel="stylesheet" crossorigin href="assets/index-DPfygzNe.css">
     <style>
@@ -52,13 +52,30 @@
         object-fit: cover;
         z-index: 9998;
       }
+
+      /* Overlay */
+      #overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        font-size: 28px;
+        z-index: 10000;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <div id="app"></div>
 
-    <!-- Кнопка запуска фоновой музыки -->
-    <button class="play-button" onclick="startBackgroundMusic()"></button>
+    <!-- Overlay -->
+    <div id="overlay">✨ Нажми, чтобы Максим засадил Ане ✨</div>
 
     <!-- Фоновая музыка -->
     <audio id="background-music" src="assets/bg.mp3" loop></audio>
@@ -74,13 +91,20 @@
     <script>
       let bgAudio;
 
-      function startBackgroundMusic() {
-        bgAudio = document.getElementById('background-music');
-        bgAudio.play();
-        document.querySelector('.play-button').style.display = 'none';
-      }
+      // Оверлей — скрыть и запустить фоновую музыку
+      const overlay = document.getElementById('overlay');
+      const backgroundMusic = document.getElementById('background-music');
+
+      overlay.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        const playPromise = backgroundMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => console.error("Ошибка воспроизведения музыки:", err));
+        }
+      });
 
       document.addEventListener('DOMContentLoaded', () => {
+        bgAudio = backgroundMusic;
         const btn = document.getElementById('buy-melon-btn');
         const img = document.getElementById('melon-image');
         const melonAudio = document.getElementById('melon-audio');
@@ -102,6 +126,13 @@
           // Показать изображение
           img.src = melonImageUrl;
           img.style.display = 'block';
+        });
+
+        // Скрыть изображение арбуза по клику
+        img.addEventListener('click', () => {
+          img.style.display = 'none';
+          melonAudio.pause();
+          melonAudio.currentTime = 0;
         });
       });
     </script>
