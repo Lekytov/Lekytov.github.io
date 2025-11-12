@@ -109,30 +109,50 @@
         const img = document.getElementById('melon-image');
         const melonAudio = document.getElementById('melon-audio');
 
-        btn.addEventListener('click', () => {
-          const melonAudioUrl = 'assets/song.mp3';
-          const melonImageUrl = 'assets/melon-full.png';
+         btn.addEventListener('click', () => {
+          if (btn.textContent.includes('Купить')) {
+            // Меняем кнопку на "Назад"
+            btn.textContent = 'Арбузы хуйня';
 
-          // Остановить фоновую музыку
-          if (bgAudio && !bgAudio.paused) {
-            bgAudio.pause();
-            bgAudio.currentTime = 0;
+            const melonAudioUrl = 'assets/song.mp3';
+            const melonImageUrl = 'assets/melon-full.png';
+
+            // Остановить фоновую музыку
+            if (bgAudio && !bgAudio.paused) {
+              bgAudio.pause();
+              bgAudio.currentTime = 0;
+            }
+
+            // Воспроизвести музыку арбуза
+            melonAudio.src = melonAudioUrl;
+            melonAudio.play();
+
+            // Показать изображение
+            img.src = melonImageUrl;
+            img.style.display = 'block';
+          } else {
+            // Возврат обратно
+            btn.textContent = 'Купить арбуз 🍉';
+
+            // Скрыть изображение арбуза
+            img.style.display = 'none';
+            
+// Остановить музыку арбуза
+            melonAudio.pause();
+            melonAudio.currentTime = 0;
+
+            // Включить фоновую музыку снова
+            bgAudio.play();
           }
-
-          // Воспроизвести музыку арбуза
-          melonAudio.src = melonAudioUrl;
-          melonAudio.play();
-
-          // Показать изображение
-          img.src = melonImageUrl;
-          img.style.display = 'block';
         });
 
-        // Скрыть изображение арбуза по клику
+        // Также можно закрыть арбуз кликом по нему
         img.addEventListener('click', () => {
           img.style.display = 'none';
           melonAudio.pause();
           melonAudio.currentTime = 0;
+          btn.textContent = 'Купить арбуз 🍉';
+          bgAudio.play();
         });
       });
     </script>
