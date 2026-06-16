@@ -9,3 +9,63 @@
     background-position: center center !important;
   }
 }
+/* 1. НАСТРОЙКИ САМОЙ ПЛАШКИ */
+a[href*="dotify.fun"] {
+  position: relative !important;
+  display: inline-block !important;
+  text-align: left !important;
+
+  /* Делаем плашку высокой, как у Telegram */
+  height: 25px !important; 
+  box-sizing: border-box !important;
+  
+  /* МЕНЯЙ ЭТО ЧИСЛО, чтобы двигать ТЕКСТ влево или вправо */
+  /* Меньше число (например, 36px) — текст сдвинется ЛЕВЕЕ */
+  /* Больше число (например, 44px) — текст уйдет ПРАВЕЕ */
+  padding-left: 22px !important; 
+  padding-right: -20px !important;
+}
+
+/* 2. НАСТРОЙКИ ИКОНКИ ДЛЯ ПОЛНОГО КОНТРОЛЯ */
+a[href*="dotify.fun"]::before {
+  content: "" !important;
+  position: absolute !important;
+  
+  /* МЕНЯЙ ЭТО ЧИСЛО, чтобы двигать ИКОНКУ влево/вправо внутри кнопки */
+  left: -6px !important; 
+  
+  /* МЕНЯЙ ПРОЦЕНТ В translateY, чтобы поднять или опустить иконку */
+  /* -58% — чуть выше, -50% — чуть ниже */
+  top: 50% !important;
+  transform: translateY(-48%) !important; 
+  
+  /* Размеры */
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0px !important;
+
+  /* Маски и инверсия */
+  background-color: #ffffff !important;
+  border-radius: 50% !important;
+  -webkit-mask-image: url('dotify.png') !important;
+  mask-image: url('dotify.png') !important;
+  -webkit-mask-size: 100% 100% !important;
+  mask-size: 100% 100% !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+  -webkit-mask-mode: luminance !important;
+  mask-mode: luminance !important;
+  
+  filter: none !important;
+}
+
+/* 3. НАСТРОЙКИ ВЫСОТЫ ТЕКСТА */
+a[href*="dotify.fun"] span,
+a[href*="dotify.fun"] {
+  display: inline-block !important;
+  /* МЕНЯЙ ЭТО ЧИСЛО, чтобы опустить текст ниже (например, 3px или 4px) */
+  margin-top: -1.5px !important; 
+  vertical-align: middle !important;
+}
